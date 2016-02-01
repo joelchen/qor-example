@@ -2,6 +2,7 @@ package admin
 
 import (
 	"github.com/qor/exchange"
+	"github.com/qor/i18n"
 	"github.com/qor/qor"
 	"github.com/qor/qor-example/app/models"
 	"github.com/qor/qor/resource"
@@ -10,6 +11,7 @@ import (
 )
 
 var ProductExchange *exchange.Resource
+var TranslationExchange *exchange.Resource
 
 func init() {
 	ProductExchange = exchange.NewResource(&models.Product{}, exchange.Config{PrimaryField: "Code"})
@@ -23,4 +25,9 @@ func init() {
 		}
 		return nil
 	})
+
+	TranslationExchange = exchange.NewResource(&i18n.Translation{}, exchange.Config{PrimaryField: "Key"})
+	TranslationExchange.Meta(&exchange.Meta{Name: "Locale"})
+	TranslationExchange.Meta(&exchange.Meta{Name: "Key"})
+	TranslationExchange.Meta(&exchange.Meta{Name: "Value"})
 }
